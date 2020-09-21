@@ -1,7 +1,9 @@
 const Product = require("../model/product");
 
 exports.getProducts =  (req, res, next) => {
-    Product.find().then(data => {
+    Product.find()
+    .populate("userId", "name")
+    .then(data => {
         res.status(200).send(data)
     }).catch(err => {
         res.status(500).send(err)
