@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoUrl = require('./mongoUrl')
 const mongoose  = require('mongoose');
 const productRouter = require('./router/products')
+const cartRouter = require('./router/cart')
 const User = require("./model/user");
 
 const url = mongoUrl;
@@ -20,7 +21,8 @@ app.use((req, res, next) => {
     })
 });
 
-app.use(productRouter);
+app.use('/api', productRouter);
+app.use('/api', cartRouter);
 
 mongoose.connect(url,  {
     useNewUrlParser: true,
