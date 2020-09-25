@@ -4,7 +4,7 @@ exports.getCart = (req, res, next) => {
     req.user
     .populate('cart.items.productId')
     .execPopulate()
-    .then().then(userData => {
+    .then(userData => {
         res.status(200).send(userData.cart.items)
     }).catch(err => {
         res.status(500).send(err)
@@ -13,7 +13,8 @@ exports.getCart = (req, res, next) => {
 
 exports.addProductToCart =  (req, res, next) => {
     const prodId = req.body.productId;
-    Product.findById(prodId).then(product => {
+    Product.findById(prodId)
+    .then(product => {
         return req.user.addToCart(product);
     }).then(data => {
         res.status(200).send(data)
@@ -24,7 +25,8 @@ exports.addProductToCart =  (req, res, next) => {
 
 exports.removeProductFromCart = (req, res, next) => {
     const prodId = req.params.productId;
-    return req.user.removeFromCart(prodId).then(data => {
+    return req.user.removeFromCart(prodId)
+    .then(data => {
         res.status(200).send(data)
     }).catch(err => {
         res.status(500).send(err)
