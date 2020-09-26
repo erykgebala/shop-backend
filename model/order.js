@@ -24,6 +24,10 @@ const orderSchema = mongoose.Schema({
             ref: 'User'
         }
         
+    },
+    state: {
+        type: String,
+        required: true
     }
 })
 

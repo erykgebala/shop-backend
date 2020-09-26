@@ -12,15 +12,19 @@ exports.createOrder =  (req, res, next) => {
                 product: { ... p.productId._doc }
             }
         });
+        if (products.length == 0) {
+            return res.status(400).send();
+        }
         Order.create({
             user: {
                 name: req.user.name,
-                userId: req.user
+                userId: req.user,
             },
-            products: products
+            products: products,
+            state: 'CREATED'
         }).then(data => {
             return req.user.clearCart();
-        }).then(() =>{
+        }).then((data) =>{
             res.status(200).send(data)
         })
         .catch(err => {
