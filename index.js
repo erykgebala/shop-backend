@@ -5,6 +5,7 @@ const mongoose  = require('mongoose');
 const productRouter = require('./router/products')
 const cartRouter = require('./router/cart')
 const orderRouter = require('./router/order')
+const authRouter = require('./router/auth')
 const User = require("./model/user");
 
 const url = mongoUrl;
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 app.use('/api', productRouter);
 app.use('/api', cartRouter);
 app.use('/api', orderRouter);
+app.use('/api', authRouter);
 
 mongoose.connect(url,  {
     useNewUrlParser: true,
